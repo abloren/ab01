@@ -1,0 +1,7 @@
+
+01035348697 37400 Afri 1 Mocha 1 Sprite 2 Cappuccino 2 end
+01035348697 60400 Pizza 1 Chesse 1 Afri 3 Bowl 1 end
+01035348696 99900 Chesse 1 Cuvee89 1 Unruly 1 end
+01035348697 11800 Sprite 1 Cappuccino 1 end
+01035348698 98500 Pizza 1 Lamarca 1 Bowl 1 Cappuccino 3 end
+01035348697 261100 Chesse 4 Latte 2 Unruly 3 Burrito 3 end
