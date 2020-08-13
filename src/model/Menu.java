@@ -1,5 +1,6 @@
 package model;
 
+// model of meno to define menu info
 public class Menu{
 	protected int id;
 	protected String category;

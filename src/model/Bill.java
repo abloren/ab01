@@ -1,5 +1,6 @@
 package model;
 
+//model of bill
 public class Bill extends Customer {
 	private String bankId;
 	public Bill() {
