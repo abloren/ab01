@@ -22,119 +22,101 @@ public class Cafe extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel rootPane, selectPanel;
-	private JButton btnSelect, btnBack, btnHome, btnLatte, btnMatcha, btnMocha;
+	private JButton btnSelect, btnBack, btnHome, btnLatte, btnMatcha, btnMocha, btnCappu, btnLobby;
 	private JLabel lblCam, lblHome, lblLatte, lblLobby, lblMatcha, lblMocha, lblSelect, labelCount;
 	private MenuView bill;
-	int count1 = 0, count2 = 0, count3 = 0, count4 = 0, count5 = 0, count6 = 0, count7 = 0; // click chon thi tu dong tang len 1																					// tang len 1
-	private JButton btnCappu;
-	private JButton btnLobby;
+	int count1 = 0, count2 = 0, count3 = 0, count4 = 0, count5 = 0, count6 = 0, count7 = 0;
 
 	public Cafe(JFrame jFrame, boolean modal) {
 		this.setLocationRelativeTo(null);
-		this.setTitle("Cafe"); // ten
+		this.setTitle("Cafe"); // name
 		bill = (MenuView) jFrame;
-		addControl();
-		addEvent();
+		addControl();//design function
+		addEvent(); //event function
 	}
 
+	//event function
 	private void addEvent() {
-		btnCappu.addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
+		 btnCappu.addActionListener(new ActionListener() {
+
+			 @Override
+			 public void actionPerformed(ActionEvent e) {
 				++count1;
 				String countMenu = String.valueOf(count1);
 				labelCount.setText(countMenu);
 				lblSelect.setText(lblCam.getText());
-				count2 = 0;
-				count3 = 0;
-				count4 = 0;
-				count5 = 0;
-				count6 = 0;
-			}
-		});
+				count2 = 0; count3 = 0; count4 = 0;
+				count5 = 0; count6 = 0;
+			 }
+		 });
 
-		btnHome.addActionListener(new ActionListener() {
+		 btnHome.addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				++count2;
-				String countMenu = String.valueOf(count2);
-				labelCount.setText(countMenu);
-				lblSelect.setText(lblHome.getText());
-				count1 = 0;
-				count3 = 0;
-				count4 = 0;
-				count5 = 0;
-				count6 = 0;
+			 @Override
+			 public void actionPerformed(ActionEvent e) {
+				 ++count2;
+				 String countMenu = String.valueOf(count2);
+				 labelCount.setText(countMenu);
+				 lblSelect.setText(lblHome.getText());
+				 count1 = 0; count3 = 0; count4 = 0;
+				 count5 = 0; count6 = 0;
+			 }
+		 });
 
-			}
-		});
+		 btnLatte.addActionListener(new ActionListener() {
 
-		btnLatte.addActionListener(new ActionListener() {
+			 @Override
+			 public void actionPerformed(ActionEvent e) {
+				 ++count3;
+				 String countMenu = String.valueOf(count3);
+				 labelCount.setText(countMenu);
+				 lblSelect.setText(lblLatte.getText());
+				 count2 = 0; count1 = 0; count4 = 0;
+				 count5 = 0; count6 = 0;
+			 }
+		 });
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				++count3;
-				String countMenu = String.valueOf(count3);
-				labelCount.setText(countMenu);
-				lblSelect.setText(lblLatte.getText());
-				count2 = 0;
-				count1 = 0;
-				count4 = 0;
-				count5 = 0;
-				count6 = 0;
+		 btnLobby.addActionListener(new ActionListener() {
 
-			}
-		});
 
-		btnLobby.addActionListener(new ActionListener() {
+			 @Override
+			 public void actionPerformed(ActionEvent e) {
+				 ++count4;
+				 String countMenu = String.valueOf(count4);
+				 labelCount.setText(countMenu);
+				 lblSelect.setText(lblLobby.getText());
+				 count2 = 0; count3 = 0; count1 = 0;
+				 count5 = 0; count6 = 0;
+			 }
+		 });
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				++count4;
-				String countMenu = String.valueOf(count4);
-				labelCount.setText(countMenu);
-				lblSelect.setText(lblLobby.getText());
-				count2 = 0;
-				count3 = 0;
-				count1 = 0;
-				count5 = 0;
-				count6 = 0;
-			}
-		});
+		 btnMatcha.addActionListener(new ActionListener() {
 
-		btnMatcha.addActionListener(new ActionListener() {
+			 @Override
+			 public void actionPerformed(ActionEvent e) {
+				 ++count5;
+				 String countMenu = String.valueOf(count5);
+				 labelCount.setText(countMenu);
+				 lblSelect.setText(lblMatcha.getText());
+				 count2 = 0; count3 = 0; count4 = 0;
+				 count1 = 0; count6 = 0;
+			 }
+		 });
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				++count5;
-				String countMenu = String.valueOf(count5);
-				labelCount.setText(countMenu);
-				lblSelect.setText(lblMatcha.getText());
-				count2 = 0;
-				count3 = 0;
-				count4 = 0;
-				count1 = 0;
-				count6 = 0;
-			}
-		});
+		 btnMocha.addActionListener(new ActionListener() {
 
-		btnMocha.addActionListener(new ActionListener() {
+			 @Override
+			 public void actionPerformed(ActionEvent e) {
+				 ++count6;
+				 String countMenu = String.valueOf(count6);
+				 labelCount.setText(countMenu);
+				 lblSelect.setText(lblMocha.getText());
+				 count2 = 0; count3 = 0; count4 = 0;
+				 count5 = 0; count1 = 0;
+			 }
+		 });
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				++count6;
-				String countMenu = String.valueOf(count6);
-				labelCount.setText(countMenu);
-				lblSelect.setText(lblMocha.getText());
-				count2 = 0;
-				count3 = 0;
-				count4 = 0;
-				count5 = 0;
-				count1 = 0;
-			}
-		});
 
 		btnBack.addActionListener(new ActionListener() {
 
@@ -154,6 +136,7 @@ public class Cafe extends JDialog {
 
 	}
 
+
 	protected void btnSelect(ActionEvent e) {
 		if (lblSelect.getText() == "Selected menu") {
 			JOptionPane.showMessageDialog(rootPane, "제품을 선택하지 않았음");
@@ -172,6 +155,7 @@ public class Cafe extends JDialog {
 		bill.setVisible(true);
 	}
 
+	//design function
 	public void addControl() {
 
 		setBounds(100, 100, 526, 573);

@@ -1,4 +1,4 @@
-package controller;
+package data.impl;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -270,7 +270,7 @@ public class DataFile implements DAO {
 	}
 
 	Menu findMenu(String name) {
-		for (Menu m : readDataFromFile("data.txt")) {
+		for (Menu m : readDataFromFile("src/data/data.txt")) {
 			if (m.getName().equalsIgnoreCase(name))
 				return m;
 		}

@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import controller.DataFile;
+import data.impl.DataFile;
 import model.Menu;
 
 public class Customer extends JDialog {
@@ -33,7 +33,7 @@ public class Customer extends JDialog {
 	private MenuView bill;
 	HashMap<Menu, Integer> hashCus;
 	JLabel labelTotal;
-	private controller.DataFile controller;
+	private DataFile controller;
 
 	public Customer(JDialog jDialog, boolean modal) {
 		super(jDialog, modal);
@@ -77,14 +77,15 @@ public class Customer extends JDialog {
 		controller = new DataFile();
 		model.Bill cus = new model.Bill(txtPhone.getText(), txtBankId.getText(),Integer.parseInt(basket.labelTotal.getText()));
 		model.Customer c = new model.Customer(txtPhone.getText(), Integer.parseInt(basket.labelTotal.getText()));
-		controller.writeBillFile(cus, "bill.txt"); //영수증들의 정보를 file로 저장
-		controller.writeFile(basket.mapBasket, "admin.txt"); //걱 물건의 개수와 이름을 file로 저장
-		controller.writeCus(c, "customer.txt", hashCus); //손님의 주문한 각 문걸을 file로 저장
+		controller.writeBillFile(cus, "src/data/bill.txt"); //영수증들의 정보를 file로 저장
+		controller.writeFile(basket.mapBasket, "src/data/admin.txt"); //걱 물건의 개수와 이름을 file로 저장
+		controller.writeCus(c, "src/data/customer.txt", hashCus); //손님의 주문한 각 문걸을 file로 저장
 		bill = new MenuView();
 		bill.setLocationRelativeTo(null);
 		bill.setVisible(true);
 		this.dispose();
 	}
+
 
 	private void addControl() {
 		setBounds(100, 100, 406, 256);

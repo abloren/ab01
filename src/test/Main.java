@@ -8,6 +8,5 @@ public class Main {
 		MenuView bill = new MenuView();
 		bill.setLocationRelativeTo(null);
 		bill.setVisible(true);
-		
 	}
 }

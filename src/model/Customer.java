@@ -5,8 +5,9 @@ import java.util.LinkedHashMap;
 public class Customer {
 	protected String phoneNumber;
 	protected int payTotal;
+	//
 	public LinkedHashMap<Menu, Integer> hashCus = new LinkedHashMap<Menu, Integer>();
-	
+
 	public Customer() {
 		super();
 	}
@@ -32,14 +33,15 @@ public class Customer {
 	public void setPayTotal(int payTotal) {
 		this.payTotal = payTotal;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
-		Customer m = (Customer)obj;
-		if(phoneNumber.equalsIgnoreCase(m.getPhoneNumber()))
+		Customer m = (Customer) obj;
+		if (phoneNumber.equalsIgnoreCase(m.getPhoneNumber()))
 			return true;
 		return false;
 	}
+
 	@Override
 	public int hashCode() {
 		return phoneNumber.hashCode();

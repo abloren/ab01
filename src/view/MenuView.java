@@ -20,7 +20,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import controller.DataFile;
+import data.impl.DataFile;
 import model.Menu;
 import java.awt.Color;
 
@@ -30,8 +30,8 @@ public class MenuView extends JFrame {
 	private JPanel rootPane;
 	private DefaultTableModel tableModel;
 	ArrayList<Menu> menus;
-	private controller.DataFile controller;
-	private JButton btnDrink, btnWine, btnCafe, btnFood, btnBuy, btnExit, btnInfor;
+	private DataFile controller;
+	private JButton btnDrink, btnWine, btnCafe, btnFood, btnBuy, btnExit, btnInfor, btnLogin, btnSignUp;
 	private JTable table;
 	JRadioButton rdbtnNewRadioButton;
 	private JLabel lblTotal;
@@ -45,17 +45,20 @@ public class MenuView extends JFrame {
 	private Admin admin;
 	private JButton btnMenu;
 	private BillView infor;
+	private Login login;
+	private SignUp signUp;
 	
 	public MenuView() {
 		setBackground(SystemColor.inactiveCaption);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("Wine Store"); // file name
-		loadMenuData("data.txt"); //메뉴 전부 다 읽어서 받음
+		loadMenuData("src/data/data.txt"); //메뉴 전부 다 읽어서 받음
 		mapTable = new HashMap<Menu, Integer>(); //메뉴와 해당한 개수 저장
 		addControl(); //GUI 설계 함수
 		addEvent(); //이벤트 처리 함수
 	}
 
+	//테이블에다가 데이터 표현하는 함수
 	void showData() {
 		tableModel.setRowCount(0); //만약에 출력전 테이터 없으면 테이블 내용을 다 치움
 		for (Menu m : mapTable.keySet()) {
@@ -70,7 +73,7 @@ public class MenuView extends JFrame {
 	}
 
 	
-	public Menu findMenuByName(String name) { //비교해서 개체 return
+	public Menu findMenuByName(String name) { //비교해서 menu개체 return
 		for (Menu m : menus) {
 			if (m.getName().equalsIgnoreCase(name)) {
 				return m;
@@ -157,8 +160,40 @@ public class MenuView extends JFrame {
 				btnEventInfo(e);
 			}
 		});
+		
+		btnLogin.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				btnEventLogin(e);
+			}
+		});
+		
+		btnSignUp.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				btnEventSignUp(e);
+			}
+		});
+		
 	}
 
+	protected void btnEventSignUp(ActionEvent e) {
+		signUp = new SignUp(this, true);
+		signUp.setLocationRelativeTo(null);
+		signUp.setVisible(true);
+		this.setVisible(false);
+	}
+	
+	
+	protected void btnEventLogin(ActionEvent e) {
+		login = new Login(this, true);
+		login.setLocationRelativeTo(null);
+		login.setVisible(true);
+		this.setVisible(false);
+	}
+	
 	protected void btnEventInfo(ActionEvent e) {
 		infor = new BillView(this, true);
 		infor.setLocationRelativeTo(null);
@@ -222,7 +257,7 @@ public class MenuView extends JFrame {
 		w.setVisible(true);
 		this.setVisible(false);
 	}
-
+	
 	private void addControl() {
 		setBounds(100, 100, 606, 559);
 		
@@ -239,8 +274,19 @@ public class MenuView extends JFrame {
 		
 		 btnInfor = new JButton("영수증");
 		 btnInfor.setBackground(SystemColor.inactiveCaption);
-		menuBar.add(btnInfor);
-		
+		 menuBar.add(btnInfor);
+		 
+		 btnLogin = new JButton("로그인");
+		 btnLogin.setBackground(SystemColor.inactiveCaption);
+		 menuBar.add(btnLogin);
+		 
+		 btnSignUp = new JButton("신청");
+		 btnSignUp.addActionListener(new ActionListener() {
+		 	public void actionPerformed(ActionEvent arg0) {
+		 	}
+		 });
+		 menuBar.add(btnSignUp);
+		 
 		 btnExit = new JButton("종류");
 		 btnExit.setForeground(Color.BLACK);
 		 btnExit.setBackground(Color.ORANGE);
@@ -255,14 +301,14 @@ public class MenuView extends JFrame {
 		gl_rootPane.setHorizontalGroup(
 			gl_rootPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_rootPane.createSequentialGroup()
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 561, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(50, Short.MAX_VALUE))
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(29, Short.MAX_VALUE))
 		);
 		gl_rootPane.setVerticalGroup(
 			gl_rootPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_rootPane.createSequentialGroup()
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 459, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(219, Short.MAX_VALUE))
+					.addContainerGap(31, Short.MAX_VALUE))
 		);
 
 		// gan anh vo button
@@ -294,42 +340,43 @@ public class MenuView extends JFrame {
 		btnBuy.setBackground(SystemColor.inactiveCaption);
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
+			gl_panel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(btnWine, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnFood, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnDrink, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnCafe, GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE))
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(18)
-							.addComponent(sp, GroupLayout.PREFERRED_SIZE, 424, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(96)
-							.addComponent(lblTotal)
-							.addGap(18)
+							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
+								.addComponent(btnWine, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnFood, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnDrink, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnCafe, GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE))
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnBuy, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)
 								.addGroup(gl_panel.createSequentialGroup()
+									.addGap(96)
+									.addComponent(lblTotal)
+									.addGap(18)
 									.addComponent(lblMoney, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(rdbtnNewRadioButton, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)))))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+									.addComponent(rdbtnNewRadioButton, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_panel.createSequentialGroup()
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(sp, GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)))
+							.addContainerGap())
+						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+							.addComponent(btnBuy, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)
+							.addGap(160))))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addGap(5)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(2)
-							.addComponent(sp, GroupLayout.PREFERRED_SIZE, 357, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(sp, GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
+							.addGap(8)
 							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblTotal, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblMoney, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblMoney)
 								.addComponent(rdbtnNewRadioButton, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addComponent(btnCafe, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
@@ -341,7 +388,7 @@ public class MenuView extends JFrame {
 							.addComponent(btnWine, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(btnBuy)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addGap(18))
 		);
 		panel.setLayout(gl_panel);
 		rootPane.setLayout(gl_rootPane);

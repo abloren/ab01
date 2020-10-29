@@ -20,7 +20,7 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 import javax.swing.text.StyledDocument;
 
-import controller.DataFile;
+import data.impl.DataFile;
 import model.Bill;
 import model.Menu;
 import java.awt.Color;
@@ -32,7 +32,7 @@ public class BillView extends JDialog {
 	private JMenuBar menuBar;
 	private JButton btnExit, btnMenu;
 	private MenuView bill;
-	private controller.DataFile controller;
+	private DataFile controller;
 	private ArrayList<Menu> menus;
 	private Out out;
 	private ArrayList<Bill> arrCus;
@@ -41,24 +41,16 @@ public class BillView extends JDialog {
 	public BillView(JFrame parent, boolean modal) {
 		this.setTitle("영수증");
 		bill = (MenuView) parent;
-		loadCustomerData("customer.txt");
+		loadCustomerData("src/data/bill.txt");
 		addControl();
 		addEvent();
 	}
 
-	public Menu findMenuByName(String name) {
-		for (Menu m : menus) {
-			if (m.getName().equalsIgnoreCase(name)) {
-				return m;
-			}
-		}
-		return null;
-	}
-
+	//file으로 부터 데이터 읽음
 	private void loadCustomerData(String file) {
 		controller = new DataFile();
-		arrCus = new ArrayList<Bill>();
-		arrCus = controller.readBill("bill.txt");
+		arrCus = new ArrayList<>();
+		arrCus = controller.readBill(file);
 	}
 
 	private void addEvent() {

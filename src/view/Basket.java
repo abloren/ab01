@@ -41,7 +41,7 @@ public class Basket extends JDialog {
 		this.setTitle("Basket Information");
 		addControl();
 		mapBasket = new HashMap<Menu, Integer>();
-		mapBasket.putAll(menuView.mapTable);
+		mapBasket.putAll(menuView.mapTable); //menuView 테이블의 모든 데이터을 복사함
 		addEvent();
 	}
 
@@ -50,7 +50,7 @@ public class Basket extends JDialog {
 		for (Menu m : mapBasket.keySet()) {
 			total += (m.getPrice() * mapBasket.get(m));
 		}
-		if (menuView.rdbtnNewRadioButton.isSelected() == true && total >= 7000) { //쿠폰을 벅용하면 7000원 빼준다.
+		if (menuView.rdbtnNewRadioButton.isSelected() == true && total >= 7000) { //쿠폰을 적용하면 7000원 빼준다.
 			total = total - 7000;
 			lblXacNhan.setText("있음");
 		} else {
@@ -96,22 +96,22 @@ public class Basket extends JDialog {
 	}
 
 	protected void btnEventInsert() {
-		menuView.mapTable.clear();
-		menuView.mapTable.putAll(mapBasket);
+		menuView.mapTable.clear(); //원내 테이블에 있던 다 치움
+		menuView.mapTable.putAll(mapBasket); //데이터 추가한 후 테이블에다가 데티터 넣음
 		menuView.showData();
 		menuView.setVisible(true);
 		this.setVisible(false);
 	}
 
 	protected void btnEventPay() {
-		customer = new Customer(this, true);
+		customer = new Customer(this, true); //customer 화면 부름
 		customer.setLocationRelativeTo(null);
 		customer.setVisible(true);
 		this.setVisible(false);
 	}
 
 	protected void btnEventDelete() {
-		delete = new Delete(this, true);
+		delete = new Delete(this, true); // delete 화면 부름
 		delete.setLocationRelativeTo(null);
 		delete.setVisible(true);
 		this.setVisible(false);

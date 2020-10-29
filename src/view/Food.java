@@ -25,11 +25,11 @@ public class Food extends JDialog{
 	private JButton btnSelect, btnBack, btnBagel, btnChesse, btnBowl, btnBurrito, btnGeneva, btnPizza;
 	private JLabel lblSelect, labelCount, lblBagel, lblBowl, lblBurrito, lblChesse, lblGeneva,lblPizza;
 	private MenuView bill;
-	int count1=0, count2=0, count3=0, count4=0, count5=0, count6=0; //click chon thi tu dong tang len 1
+	int count1=0, count2=0, count3=0, count4=0, count5=0, count6=0;
 
 	public Food(JFrame jFrame, boolean modal) {
 		this.setLocationRelativeTo(null);
-		this.setTitle("Food"); //ten
+		this.setTitle("Food"); 
 		bill = (MenuView)jFrame;
 		addControl();
 		addEvent();

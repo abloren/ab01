@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import controller.DataFile;
+import data.impl.DataFile;
 
 public class Out extends JDialog {
 
@@ -24,7 +24,7 @@ public class Out extends JDialog {
 	private JButton cancelButton;
 	private MenuView bill;
 	private Admin admin;
-	private controller.DataFile controller;
+	private DataFile controller;
 	private BillView infor;
 	private JLabel lblNewLabel_1;
 
@@ -83,8 +83,8 @@ public class Out extends JDialog {
 
 	protected void btnOkEvent(ActionEvent e) {
 		controller = new DataFile();
-		controller.deleteData("admin.txt"); //마감하후 에 오늘 매출 정보,영수증 다른 데에서 저장. 
-		controller.deleteData("bill.txt");	//이 스시템안에 있던 데이터를  손님의 주문한 각 문걸 정보를 빼고 다 치움 
+		controller.deleteData("/src/data/admin.txt"); //마감하후 에 오늘 매출 정보,영수증 다른 데에서 저장 예 usb 복사, cloud
+		controller.deleteData("/src/data/bill.txt");	//이 스시템안에 있던 데이터는 손님의 주문한 각 문걸 정보를 빼고 다 치움
 											//(손님의 주문한 각 문걸만 저장)
 		
 		System.exit(0);

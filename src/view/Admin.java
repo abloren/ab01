@@ -22,7 +22,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import controller.DataFile;
+import data.impl.DataFile;
 import model.Customer;
 import model.Menu;
 
@@ -32,15 +32,15 @@ public class Admin extends JDialog {
 	private JPanel rootPane;
 	private DefaultTableModel tableModel, tableModel_1, tableModel_2;
 	private JTable table;
-	private HashMap<String, Integer> mapTemp;
-	private HashMap<Menu, Integer> mapTotal;
 	private JMenuBar menuBar;
 	private JButton btnAdmin, btnExit, btnMenu, btnSee;
 	private MenuView bill;
 	@SuppressWarnings("unused")
 	private BillView infor;
-	private controller.DataFile controller;
+	private DataFile controller;
 	private ArrayList<Menu> menus;
+	private HashMap<String, Integer> mapTemp;
+	private HashMap<Menu, Integer> mapTotal;
 	private HashMap<Customer, Integer> cusMap;
 	HashMap<String, Customer> cusMenuMap;
 	private Menu m;
@@ -60,9 +60,9 @@ public class Admin extends JDialog {
 		bill = (MenuView) parent;
 		mapTotal = new HashMap<Menu, Integer>();
 		mapTemp = new HashMap<String, Integer>();
-		loadAllData("data.txt");
-		loadData("admin.txt");
-		loadCustomer("customer.txt");
+		loadAllData("src/data/data.txt");
+		loadData("src/data/admin.txt");
+		loadCustomer("src/data/customer.txt");
 		addControl();
 		showCusInfor();
 		addDataToMapTotal(mapTemp);
@@ -76,7 +76,7 @@ public class Admin extends JDialog {
 //		addEvent();
 //	}
 
-	// đọc tất cả menu
+	//admin.txt 모든 데이터 읽음
 	private void loadAllData(String file) {
 		controller = new DataFile();
 		menus = controller.readDataFromFile(file);
@@ -91,7 +91,7 @@ public class Admin extends JDialog {
 		return null;
 	}
 
-	// đọc từ file sau đó lưu vào maptemp -- ghi thông tin các sản phẩm
+	//read info from file, then add into maptemp --
 	private void loadData(String file) {
 		controller = new DataFile();
 		mapTemp = controller.readDataToAdmin(file);
@@ -176,7 +176,7 @@ public class Admin extends JDialog {
 		phoneSearch = txtSearch.getText();
 		//loadCustomerMenu("customer.txt", phoneSearch);
 		controller = new DataFile();
-		cusMenuMap = controller.readCustomerMenu("customer.txt", phoneSearch);
+		cusMenuMap = controller.readCustomerMenu("src/data/customer.txt", phoneSearch);
 		System.out.println(cusMenuMap.size());
 		if (cusMenuMap != null) {
 			for (String phone : cusMenuMap.keySet()) {
@@ -286,43 +286,45 @@ public class Admin extends JDialog {
 
 		lblNewLabel = new JLabel("~ 손님의 정보  ~");
 		GroupLayout gl_rootPane = new GroupLayout(rootPane);
-		gl_rootPane.setHorizontalGroup(gl_rootPane.createParallelGroup(Alignment.LEADING).addGroup(gl_rootPane
-				.createSequentialGroup()
-				.addGroup(gl_rootPane.createParallelGroup(Alignment.LEADING).addGroup(gl_rootPane
-						.createSequentialGroup()
-						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 219, GroupLayout.PREFERRED_SIZE).addGap(5)
-						.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addGap(5)
-						.addGroup(gl_rootPane.createParallelGroup(Alignment.TRAILING, false)
-								.addGroup(gl_rootPane.createSequentialGroup()
-										.addComponent(txtSearch, 0, 0, Short.MAX_VALUE).addGap(3).addComponent(btnSee))
-								.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)))
-						.addGroup(gl_rootPane.createSequentialGroup().addGap(36).addComponent(label).addGap(81)
-								.addComponent(lblNewLabel)))
-				.addContainerGap()));
-		gl_rootPane
-				.setVerticalGroup(gl_rootPane.createParallelGroup(Alignment.LEADING)
+		gl_rootPane.setHorizontalGroup(
+			gl_rootPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_rootPane.createSequentialGroup()
+					.addGroup(gl_rootPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_rootPane.createSequentialGroup()
-								.addGroup(gl_rootPane.createParallelGroup(Alignment.LEADING)
-										.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE)
-										.addGroup(gl_rootPane.createSequentialGroup()
-												.addGroup(gl_rootPane.createParallelGroup(Alignment.BASELINE)
-														.addComponent(txtSearch, GroupLayout.PREFERRED_SIZE, 29,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(btnSee))
-												.addPreferredGap(ComponentPlacement.RELATED)
-												.addComponent(panel_2, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-								.addGap(5)
-								.addGroup(gl_rootPane.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_rootPane.createSequentialGroup().addGap(4).addComponent(label))
-										.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 28,
-												GroupLayout.PREFERRED_SIZE))));
+							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 219, GroupLayout.PREFERRED_SIZE)
+							.addGap(5)
+							.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGap(5)
+							.addGroup(gl_rootPane.createParallelGroup(Alignment.TRAILING, false)
+								.addGroup(gl_rootPane.createSequentialGroup()
+									.addComponent(txtSearch, 0, 0, Short.MAX_VALUE)
+									.addGap(3)
+									.addComponent(btnSee))
+								.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(gl_rootPane.createSequentialGroup()
+							.addGap(70)
+							.addComponent(label)
+							.addGap(142)
+							.addComponent(lblNewLabel)))
+					.addContainerGap())
+		);
+		gl_rootPane.setVerticalGroup(
+			gl_rootPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_rootPane.createSequentialGroup()
+					.addGroup(gl_rootPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_rootPane.createSequentialGroup()
+							.addGroup(gl_rootPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(txtSearch, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnSee))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_rootPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
+						.addComponent(label)))
+		);
 		rootPane.setLayout(gl_rootPane);
 	}
 }
